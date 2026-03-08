@@ -18,22 +18,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ReARM Build And Submit Backend Release metadata action
-        uses: relizaio/rearm-docker-action@3faad76decc753d000c242f432a03ccb7a8ba443 # v1.4.6
+        uses: relizaio/rearm-docker-action@0319b44cfbb77b7d7a77b7e537e17502cb1bf37e # v1.8.0
         with:
           registry_username: ${{ secrets.DOCKER_LOGIN }}
           registry_password: ${{ secrets.DOCKER_TOKEN }}
           registry_host: registry.relizahub.com
           image_namespace: registry.relizahub.com/291f1cbe-e608-4ffd-8e1e-9a7f78e3df18-public
           image_name: rebom-backend
-          rearm_api_id: ${{ secrets.REARM_BACKEND_API_ID }}
-          rearm_api_key: ${{ secrets.REARM_BACKEND_API_KEY }}
-          rearm_api_url: https://sector.rearmhq.com
+          rearm_api_id: ${{ secrets.REARM_API_ID }}
+          rearm_api_key: ${{ secrets.REARM_API_KEY }}
+          rearm_api_url: https://rearmce.rearmhq.com
           path: backend
           enable_sbom: 'true'
           source_code_sbom_type: 'npm'
           enable_public_cosign_sigstore: 'true'
           enable_codeql: 'true'
           codeql_language: 'javascript'
+          create_component: true
   build-frontend:
     permissions:
       id-token: write
@@ -41,22 +42,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ReARM Build And Submit Frontend Release metadata action
-        uses: relizaio/rearm-docker-action@3faad76decc753d000c242f432a03ccb7a8ba443 # v1.4.6
+        uses: relizaio/rearm-docker-action@0319b44cfbb77b7d7a77b7e537e17502cb1bf37e # v1.8.0
         with:
           registry_username: ${{ secrets.DOCKER_LOGIN }}
           registry_password: ${{ secrets.DOCKER_TOKEN }}
           registry_host: registry.relizahub.com
           image_namespace: registry.relizahub.com/291f1cbe-e608-4ffd-8e1e-9a7f78e3df18-public
           image_name: rebom-frontend
-          rearm_api_id: ${{ secrets.REARM_FRONTEND_API_ID }}
-          rearm_api_key: ${{ secrets.REARM_FRONTEND_API_KEY }}
-          rearm_api_url: https://sector.rearmhq.com
+          rearm_api_id: ${{ secrets.REARM_API_ID }}
+          rearm_api_key: ${{ secrets.REARM_API_KEY }}
+          rearm_api_url: https://rearmce.rearmhq.com
           path: frontend
           enable_sbom: 'true'
           source_code_sbom_type: 'npm'
           enable_public_cosign_sigstore: 'true'
           enable_codeql: 'true'
           codeql_language: 'javascript'
+          create_component: true
   build-helm:
     permissions:
       id-token: write
@@ -65,14 +67,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ReARM Build And Submit Helm Chart Release metadata action
-        uses: relizaio/rearm-helm-action@3273bd54e24c5e37cab927b9dcb97de6d8fbcc14 # v1.1.3
+        uses: relizaio/rearm-helm-action@059821dc2ca9dcf4314d3c50acb6ee7e50c48845 # v1.5.0
         with:
           registry_username: ${{ secrets.DOCKER_LOGIN }}
           registry_password: ${{ secrets.DOCKER_TOKEN }}
           registry_host: registry.relizahub.com/291f1cbe-e608-4ffd-8e1e-9a7f78e3df18-public
           helm_chart_name: rebom
-          rearm_api_id: ${{ secrets.REARM_HELM_API_ID }}
-          rearm_api_key: ${{ secrets.REARM_HELM_API_KEY }}
-          rearm_api_url: https://sector.rearmhq.com
+          rearm_api_id: ${{ secrets.REARM_API_ID }}
+          rearm_api_key: ${{ secrets.REARM_API_KEY }}
+          rearm_api_url: https://rearmce.rearmhq.com
           path: helm
           enable_public_cosign_sigstore: 'true'
+          create_component: true
